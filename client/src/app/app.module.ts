@@ -6,8 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
-import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
@@ -22,8 +21,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
     BrowserModule,
     AppRoutingModule,
     GoogleMapsModule,
-    HttpClient,
-    Subject,
+    HttpClientModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth())
   ],

@@ -1,6 +1,6 @@
 <div class="my-google-map">
     <google-map [options]="mapOptions">
-        <map-marker *ngFor="let markerPosition of markerPositions"
+        <map-marker *ngFor="let markerPosition of markerPositions$ | async"
         [position]="markerPosition"
         [options]="markerOptions"></map-marker>
     </google-map>

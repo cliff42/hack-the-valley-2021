@@ -1,18 +1,13 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 export interface MarkerData {
   title: string;
   categories: string[];
-  points: Point[];
+  points: google.maps.LatLngLiteral[];
 }
-
-export interface Point {
-  lat: number;
-  lng: number;
-}
-
 
 @Component({
   selector: 'app-home',
@@ -28,27 +23,38 @@ export class HomeComponent implements OnInit {
     streetViewControl: false,
   };
   markerOptions: google.maps.MarkerOptions = {draggable: false};
-  markerPositions: google.maps.LatLngLiteral[] = [{lat: 30, lng: 20}];
+  markerPositions$: BehaviorSubject<google.maps.LatLngLiteral[]> = new BehaviorSubject<google.maps.LatLngLiteral[]>([]);
   markerPoints: MarkerData[] = [];
 
   constructor(private http:HttpClient) { }
 
   ngOnInit(): void {
-    this.getManuscripts();
+    this.getMarkerData();
   }
 
-  getManuscripts(): void {
-    let res = this.http.get<any>('http://localhost:8000/api/manuscripts');
+  getMarkerData(): void {
+    let res = this.http.get<any>('http://localhost:3000/events');
     res.subscribe((data) => {
-      data.forEach((e: any) => {
-        let data: MarkerData = {
+      let points: google.maps.LatLngLiteral[] = [];
+      data.message.forEach((e: any) => {
+        let ps: google.maps.LatLngLiteral[] = [];
+        e.geometry.forEach((el:any) => {
+          let point: google.maps.LatLngLiteral = {
+            lat: el.coordinates[1],
+            lng: el.coordinates[0]
+          }
+          ps.push(point);
+        });
+
+        let md: MarkerData = {
           title: e.title,
           categories: e.categories.map((x: any) => x.title),
-          points: []
+          points: ps
         };
-        this.markerPoints.push(data);
+        this.markerPoints.push(md);
+        points.push(...ps);
       });
+        this.markerPositions$.next(points);
     });
   }
-
 }

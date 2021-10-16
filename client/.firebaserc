@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "hack-the-valley-e04a6": {
+      "hosting": {
+        "client": [
+          "hack-the-valley-e04a6"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "hack-the-valley-e04a6"
+  }
+}

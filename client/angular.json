@@ -98,6 +98,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "client:build:production",
+            "firebaseProject": "hack-the-valley-e04a6",
+            "firebaseHostingSite": "hack-the-valley-e04a6"
+          }
         }
       }
     }

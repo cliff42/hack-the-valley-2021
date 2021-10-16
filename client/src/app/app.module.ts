@@ -8,6 +8,9 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,9 @@ import { Subject } from 'rxjs';
     AppRoutingModule,
     GoogleMapsModule,
     HttpClient,
-    Subject
+    Subject,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth())
   ],
   providers: [],
   bootstrap: [AppComponent]

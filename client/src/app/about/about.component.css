@@ -1,0 +1,76 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.img-container {
+  background-image: url("../../assets/tree-background.jpg");
+  background-color: #cccccc;
+  height: 500px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.img-container-text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+.created-by h5 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+  font-size: 1.6rem;
+  white-space: nowrap;
+  margin-top: 15%;
+  margin-left: 10%;
+}
+
+.created-by {
+  display: flex;
+  align-items: center !important;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+.created-by a {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.created-by img {
+  width: 150px;
+  height: 150px;
+  border-radius: 75px;
+}
+
+.info-div {
+  margin-top: 5%;
+  margin-left: 15%;
+  margin-right: 15%;
+  text-align: center;
+}
+
+.info-div h3 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+  font-size: 2rem;
+}
+
+.info-div p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2rem;
+  margin-top: 5%;
+}
+
+.links {
+  list-style: none;
+}

@@ -1,7 +1,13 @@
 <div class="my-google-map">
-    <google-map [options]="mapOptions">
-        <map-marker *ngFor="let markerPosition of markerPositions$ | async"
+    <google-map
+    [options]="mapOptions">
+        <map-marker #marker="mapMarker" *ngFor="let markerPosition of markerPositions$ | async"
         [position]="markerPosition"
-        [options]="markerOptions"></map-marker>
+        [options]="markerOptions"
+        [icon] = "getIconData(markerPosition)"
+        (mapClick)="openInfoWindow(marker, markerPosition)">
+        <map-info-window>{{windowInfo}}</map-info-window>
+    </map-marker>
+
     </google-map>
 </div>

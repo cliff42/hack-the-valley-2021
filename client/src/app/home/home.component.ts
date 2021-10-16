@@ -1,12 +1,19 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
+import {MapInfoWindow, MapMarker} from '@angular/google-maps';
 
 export interface MarkerData {
   title: string;
-  categories: string[];
+  category: any;
   points: google.maps.LatLngLiteral[];
+}
+
+export let disasterCategoryToIconUrl: any = {
+  "wildfires" : "../../assets/wildfire.png",
+  "severeStorms" : "../../assets/severeStorms.png",
+  "volcanoes" : "../../assets/volcanoes.png"
 }
 
 @Component({
@@ -16,6 +23,10 @@ export interface MarkerData {
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
+  @ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
+
+  positionToMarkerInfo: any = {};
+  windowInfo: any = "";
 
   mapOptions: google.maps.MapOptions = {
     center: { lat: 38.9987208, lng: -77.2538699 },
@@ -45,16 +56,34 @@ export class HomeComponent implements OnInit {
           }
           ps.push(point);
         });
-
         let md: MarkerData = {
           title: e.title,
-          categories: e.categories.map((x: any) => x.title),
+          category: e.categories[0],
           points: ps
         };
+        ps.forEach(point => {
+          let pointName = point.lat.toString() + point.lng.toString();
+          this.positionToMarkerInfo[pointName] = md;
+        })
         this.markerPoints.push(md);
         points.push(...ps);
       });
         this.markerPositions$.next(points);
     });
+  }
+
+  openInfoWindow(marker: MapMarker, markerPosition: any) {
+    console.log("Marker clicked, marker position: ", markerPosition);
+    this.windowInfo = this.positionToMarkerInfo[markerPosition.lat.toString()+markerPosition.lng.toString()].title;
+    this.infoWindow.open(marker);
+  }
+
+  getIconData(markerPosition: any): google.maps.Icon {
+    let name = this.positionToMarkerInfo[markerPosition.lat.toString()+markerPosition.lng.toString()].category.id;
+    let iconData: google.maps.Icon = {
+      url: disasterCategoryToIconUrl[name],
+      scaledSize: new google.maps.Size(50, 50)
+    }
+    return iconData;
   }
 }

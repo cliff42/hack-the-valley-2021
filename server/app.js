@@ -25,7 +25,6 @@ app.get("/events", (req, res) => {
   axios.get('https://eonet.sci.gsfc.nasa.gov/api/v3/events', { params: { status: "open", limit: 20 } })
     .then(response => {
       console.log('getting NASA EONET event data...');
-      console.log(response.data.events[0].geometry);
       res.json({ message: response.data.events });
     })
     .catch(error => {

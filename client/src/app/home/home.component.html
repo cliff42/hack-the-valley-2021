@@ -1,1 +1,7 @@
-<p>home works!</p>
+<div class="my-google-map">
+    <google-map [options]="mapOptions">
+        <map-marker *ngFor="let markerPosition of markerPositions"
+        [position]="markerPosition"
+        [options]="markerOptions"></map-marker>
+    </google-map>
+</div>

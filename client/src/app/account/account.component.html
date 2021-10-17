@@ -11,13 +11,14 @@
         <div class="card-body">
           <h5 class="card-title">Stay Safe!</h5>
           <p class="card-text">Enter your phone number to be notifed of natural disaster events within 50km of your location!</p>
+          <p class="card-text text-muted">must be in format: +COUNTRYCODEXXXXXXXXXX</p>
           <hr class="my-4">
           <form>
             <div class="form-group">
               <input type="phoneNumber" class="form-control" placeholder="Phone Number" #phoneNumberInput>
               <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
             </div>
-            <button type="button" class="btn btn-primary">Submit Phone Number</button>
+            <button type="button" class="btn btn-primary" (click)="sendPhoneInput(user.uid, phoneNumberInput.value)">Submit Phone Number</button>
           </form>
         </div>
       </div>

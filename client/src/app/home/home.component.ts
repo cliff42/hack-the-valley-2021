@@ -13,7 +13,17 @@ export interface MarkerData {
 export let disasterCategoryToIconUrl: any = {
   "wildfires" : "../../assets/wildfire.png",
   "severeStorms" : "../../assets/severeStorms.png",
-  "volcanoes" : "../../assets/volcanoes.png"
+  "volcanoes" : "../../assets/volcanoes.png",
+  "drought": "../../assets/drought.png",
+  "dustHaze": "../../assets/dustHaze.png",
+  "earthquakes": "../../assets/earthquakes.png",
+  "floods": "../../assets/floods.png",
+  "landslides": "../../assets/landslides.png",
+  "manmade": "../../assets/manmade.png",
+  "seaLakeIce": "../../assets/seaLakeIce.png",
+  "snow": "../../assets/snow.png",
+  "temperatureExtremes": "../../assets/temperatureExtremes.png",
+  "waterColor": "../../assets/waterColor.png"
 }
 
 @Component({

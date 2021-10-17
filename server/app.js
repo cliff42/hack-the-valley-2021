@@ -23,8 +23,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}) );
 
 mongoose.connect(dbConfig.url, {
-    useNewUrlParser: true, 
-    useUnifiedTopology: true 
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 }).then(() => {
     console.log("Successfully connected to the database");
 }).catch(err => {
@@ -54,13 +54,13 @@ app.get("/events", (req, res) => {
 });
 
 // Send a message to the user's phone number (from Google Firebase) using Twilio
-app.post("/send-message", async (req, res) => {
+app.post("/send-welcome-message", async (req, res) => {
     try {
         let user = await User.find({uid: req.body.uid});
         if (user.length > 0) {
             client.messages
             .create({
-                body: 'Test for Natural Events',
+                body: 'You have succesfully signed up to get alerts from Natural Events Tracker!',
                 from: '+13514443957',
                 to: user[0].phoneNumber
              })
@@ -78,7 +78,8 @@ app.post("/send-message", async (req, res) => {
 });
 
 app.post("/add-user", async (req, res) => {
-    let user = new User({ uid: req.body.uid, phoneNumber: req.body.phoneNumber });
+  console.log("Trying to add new user", req.body);
+    let user = new User({ uid: req.body.uid, phoneNumber: req.body.phoneNumber, lat: req.body.lat, lng: req.body.lng});
     try {
         await user.save()
         console.log("added phone number for user: " + req.body.uid);

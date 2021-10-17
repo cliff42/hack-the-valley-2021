@@ -19,21 +19,35 @@ export class AccountComponent implements OnInit {
   sendPhoneInput(userId: string, phoneNum: string) {
     console.log(userId);
     console.log(phoneNum);
-    var formData = {
+    var formData: any = {
       "uid": userId,
       "phoneNumber": phoneNum
     }
-    let res = this.http.post<any>('http://localhost:3000/add-user', formData);
-    res.subscribe((data) => {
+    if(navigator.geolocation) {
+      console.log("HERE");
+      navigator.geolocation.getCurrentPosition((position) => {
+      formData["lat"] = position.coords.latitude;
+      formData["lng"] = position.coords.longitude;
+
+      let res = this.http.post<any>('http://localhost:3000/add-user', formData);
+      res.subscribe((data) => {
       this.sendTestMessage(userId);
-    });
+      });
+      })
+    }
+    else {
+      let res = this.http.post<any>('http://localhost:3000/add-user', formData);
+      res.subscribe((data) => {
+      this.sendTestMessage(userId);
+      });
+    }
   }
 
   sendTestMessage(userId: string): void {
     var formData = {
       "uid": userId
     }
-    let res = this.http.post<any>('http://localhost:3000/send-message', formData);
+    let res = this.http.post<any>('http://localhost:3000/send-welcome-message', formData);
     res.subscribe((data) => {
       console.log(data.message);
     });

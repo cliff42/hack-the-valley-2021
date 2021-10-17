@@ -5,12 +5,12 @@ To Run Locally:
 
 in client:
 
-ng serve
+  ng serve
 
-hosted on localhost:4200
+  hosted on localhost:4200
 
 in server:
 
-node app.js
+  node app.js
 
-hosted on localhost:3000
+  hosted on localhost:3000

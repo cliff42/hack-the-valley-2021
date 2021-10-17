@@ -45,8 +45,8 @@ export class HomeComponent implements OnInit {
     streetViewControl: false,
   };
   mapCenter = {
-    lat: 0,
-    lng: 0
+    lat: 49.282,
+    lng: 123.12
   }
   userPosition: any;
   markerOptions: google.maps.MarkerOptions = {draggable: false};

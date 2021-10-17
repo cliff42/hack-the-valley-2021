@@ -1,1 +1,28 @@
-<p>account works!</p>
+<div *ngIf="auth.user | async as user; else notLoggedIn">
+
+    <div class="jumbotron jumbotron-fluid bg-secondary">
+        <div class="container">
+          <h1 class="display-4 text-light">Hello {{ user.displayName }}!</h1>
+          <p class="lead text-light">Temp text</p>
+        </div>
+      </div>
+
+      <div class="card mx-auto" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Stay Safe!</h5>
+          <p class="card-text">Enter your phone number to be notifed of natural disaster events within 50km of your location!</p>
+          <hr class="my-4">
+          <form>
+            <div class="form-group">
+              <input type="phoneNumber" class="form-control" placeholder="Phone Number" #phoneNumberInput>
+              <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+            </div>
+            <button type="button" class="btn btn-primary">Submit Phone Number</button>
+          </form>
+        </div>
+      </div>
+</div>
+
+<ng-template #notLoggedIn>
+    <h2>Sorry, there was an error with your account, please login again!</h2>
+</ng-template>

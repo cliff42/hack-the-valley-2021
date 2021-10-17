@@ -1,5 +1,7 @@
 <div class="my-google-map">
     <google-map
+    height = "93vh"
+    width = "100vw"
     [options]="mapOptions">
         <map-marker #marker="mapMarker" *ngFor="let markerPosition of markerPositions$ | async"
         [position]="markerPosition"

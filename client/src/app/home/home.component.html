@@ -2,7 +2,8 @@
     <google-map
     height = "93vh"
     width = "100vw"
-    [options]="mapOptions">
+    [options]="mapOptions"
+    [center]="mapCenter">
         <map-marker #marker="mapMarker" *ngFor="let markerPosition of markerPositions$ | async"
         [position]="markerPosition"
         [options]="markerOptions"
@@ -10,6 +11,10 @@
         (mapClick)="openInfoWindow(marker, markerPosition)">
         <map-info-window>{{windowInfo}}</map-info-window>
     </map-marker>
+    <map-marker *ngIf="userPosition"
+    [position]="userPosition"
+    [options]="markerOptions"
+    [icon]="getUserLocationIcon()"></map-marker>
 
     </google-map>
 </div>

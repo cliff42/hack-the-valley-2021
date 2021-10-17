@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import {MapInfoWindow, MapMarker} from '@angular/google-maps';
+
+export const USER_LOCATION_ICON = "../../assets/userLocation.png"
 
 export interface MarkerData {
   title: string;
@@ -39,10 +40,15 @@ export class HomeComponent implements OnInit {
   windowInfo: any = "";
 
   mapOptions: google.maps.MapOptions = {
-    center: { lat: 38.9987208, lng: -77.2538699 },
-    zoom: 14,
+    center: { lat: 0, lng: 0 },
+    zoom: 8,
     streetViewControl: false,
   };
+  mapCenter = {
+    lat: 0,
+    lng: 0
+  }
+  userPosition: any;
   markerOptions: google.maps.MarkerOptions = {draggable: false};
   markerPositions$: BehaviorSubject<google.maps.LatLngLiteral[]> = new BehaviorSubject<google.maps.LatLngLiteral[]>([]);
   markerPoints: MarkerData[] = [];
@@ -51,6 +57,17 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMarkerData();
+    if(!navigator.geolocation) {
+      console.log("location is not supported");
+    }
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(`lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`);
+      this.userPosition = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      }
+      this.mapCenter = this.userPosition
+    })
   }
 
   getMarkerData(): void {
@@ -93,6 +110,14 @@ export class HomeComponent implements OnInit {
     let iconData: google.maps.Icon = {
       url: disasterCategoryToIconUrl[name],
       scaledSize: new google.maps.Size(50, 50)
+    }
+    return iconData;
+  }
+
+  getUserLocationIcon(): google.maps.Icon {
+    let iconData: google.maps.Icon = {
+      url: USER_LOCATION_ICON,
+      scaledSize: new google.maps.Size(25, 25)
     }
     return iconData;
   }

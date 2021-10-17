@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit {
   };
   mapCenter = {
     lat: 49.282,
-    lng: 123.12
+    lng: -123.12
   }
   userPosition: any;
   markerOptions: google.maps.MarkerOptions = {draggable: false};

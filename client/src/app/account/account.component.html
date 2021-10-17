@@ -12,18 +12,23 @@
           <h5 class="card-title">Stay Safe!</h5>
           <p class="card-text">Enter your phone number to be notifed of natural disaster events within 50km of your location!</p>
           <p class="card-text text-muted">must be in format: +COUNTRYCODEXXXXXXXXXX</p>
+          <p class="card-text text-muted">ex) +14161234567</p>
           <hr class="my-4">
           <form>
             <div class="form-group">
               <input type="phoneNumber" class="form-control" placeholder="Phone Number" #phoneNumberInput>
               <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
             </div>
-            <button type="button" class="btn btn-primary" (click)="sendPhoneInput(user.uid, phoneNumberInput.value)">Submit Phone Number</button>
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn btn-success" (click)="sendPhoneInput(user.uid, phoneNumberInput.value)">Submit Phone Number</button>
+            </div>
+            <div class="d-flex justify-content-center" style="margin-top: 20px; text-align: center;">
+              <p>{{statusText}}</p>
+            </div>
           </form>
         </div>
       </div>
 </div>
-
 <ng-template #notLoggedIn>
     <h2>Sorry, there was an error with your account, please login again!</h2>
 </ng-template>

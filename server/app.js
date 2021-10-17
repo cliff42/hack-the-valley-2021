@@ -95,6 +95,7 @@ app.post("/add-user", async (req, res) => {
       res.status(500).send(err);
   }
   } else {
+    res.status(200).send({prevAdded:true, message: "Phone number already added for this user."})
     console.log("User already added");
   }
 });

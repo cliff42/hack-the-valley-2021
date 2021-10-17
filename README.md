@@ -1,4 +1,4 @@
-# hack-the-valley-2021
+# hack-the-valley-2021 - Natural Event Tracker
 Live site: https://natural-event-tracker-client.herokuapp.com/
 
 To Run Locally:

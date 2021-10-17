@@ -27,6 +27,9 @@
   <router-outlet></router-outlet>
 </div>
 <ng-template #showLogin>
-  <p>Please login.</p>
-  <button class="btn btn-outline-success my-2 my-sm-0" (click)="login()">Login with Google</button>
+  <div class="login">
+    <img class="login-image" src="../assets/tree-icon-small.png">
+    <br>
+    <button class="btn btn-success my-2 my-sm-0" (click)="login()">Login with Google</button>
+  </div>
 </ng-template>

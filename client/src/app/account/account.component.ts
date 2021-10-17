@@ -13,6 +13,8 @@ export class AccountComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  todayDate = new Date();
+
   getPhoneInput(phoneNum: string) {
     console.log(phoneNum);
   }

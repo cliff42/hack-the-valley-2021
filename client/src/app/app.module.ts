@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../environments/environment';
 import { AccountComponent } from './account/account.component';
+import { DateTimeStringPipe } from './pipes/datetimestring.datepipe';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { AccountComponent } from './account/account.component';
     HomeComponent,
     AboutComponent,
     AccountComponent,
+    DateTimeStringPipe
   ],
   imports: [
     BrowserModule,

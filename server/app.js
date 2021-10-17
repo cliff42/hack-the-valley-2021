@@ -3,13 +3,29 @@ const https = require('https');
 const axios = require('axios');
 require('dotenv').config()
 
+// Twilio
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 
+// MongoDB
+const mongoose = require('mongoose');
+const dbConfig = require('./config/database.config');
+const User = require('./models/user.js');
+
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+
+mongoose.connect(dbConfig.url, {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true 
+}).then(() => {
+    console.log("Successfully connected to the database");
+}).catch(err => {
+    console.log('Could not connect to the database. Exiting now...', err);
+    process.exit();
+});
 
 app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -17,7 +33,7 @@ app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('Access-Control-Allow-Credentials', true);
   next();
-  });
+});
 
 // Gets a list of the current open events from NASA's EONET API
 app.get("/events", (req, res) => {
@@ -48,6 +64,16 @@ app.get("/send-message", (req, res) => {
   } else {
     res.json({message: 'There is no phone number on record for your google account'});
   }
+});
+
+app.get("/test-db", async (req, res) => {
+    try {
+        let users = await User.find();
+        res.status(200).send(users);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
 });
 
 app.listen(PORT, () => {

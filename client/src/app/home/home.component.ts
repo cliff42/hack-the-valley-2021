@@ -11,6 +11,23 @@ export interface MarkerData {
   points: google.maps.LatLngLiteral[];
 }
 
+export enum disasterCategoryFilter {
+  "all",
+  "wildfires",
+  "severeStorms",
+  "volcanoes",
+  "drought",
+  "dustHaze",
+  "earthquakes",
+  "floods",
+  "landslides",
+  "manmade",
+  "seaLakeIce",
+  "snow",
+  "temperatureExtremes",
+  "waterColor"
+}
+
 export let disasterCategoryToIconUrl: any = {
   "wildfires" : "../../assets/wildfire.png",
   "severeStorms" : "../../assets/severeStorms.png",
@@ -35,6 +52,41 @@ export let disasterCategoryToIconUrl: any = {
 })
 export class HomeComponent implements OnInit {
   @ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
+
+currentFilter: disasterCategoryFilter = disasterCategoryFilter.all;
+
+disasterCategoryFilterToName: any = {
+  "all": "all",
+  "wildfires": "Wildfires",
+  "severeStorms": "Severe Stroms",
+  "volcanoes": "Volcanoes",
+  "drought": "Drought",
+  "dustHaze": "Dust and Haze",
+  "earthquakes": "Earthquakes",
+  "floods": "Floods",
+  "landslides": "Landslides",
+  "manmade": "Man made",
+  "seaLakeIce": "Sea and Lake Ice",
+  "snow": "Snow",
+  "temperatureExtremes": "Temperature Extremes",
+  "waterColor": "Water Color"
+}
+
+ disasterCategories = [
+  "wildfires",
+  "severeStorms",
+  "volcanoes",
+  "drought",
+  "dustHaze",
+  "earthquakes",
+  "floods",
+  "landslides",
+  "manmade",
+  "seaLakeIce",
+  "snow",
+  "temperatureExtremes",
+  "waterColor"
+ ]
 
   positionToMarkerInfo: any = {};
   windowInfo: any = "";
@@ -120,5 +172,45 @@ export class HomeComponent implements OnInit {
       scaledSize: new google.maps.Size(25, 25)
     }
     return iconData;
+  }
+
+  filterSelect(category: string) {
+    console.log("Selected filter for: " + category as unknown as disasterCategoryFilter);
+    if (category as unknown as disasterCategoryFilter === this.currentFilter) {
+      this.currentFilter = disasterCategoryFilter.all;
+    } else {
+      this.currentFilter = category as unknown as disasterCategoryFilter;
+    }
+    this.updateMarkerPositions();
+  }
+
+  updateMarkerPositions() {
+    console.log("update points");
+    let points: google.maps.LatLngLiteral[] = [];
+    this.markerPoints.forEach(md => {
+      if (this.currentFilter === disasterCategoryFilter.all || this.currentFilter === md.category.id) {
+        points.push(...md.points);
+      }
+    })
+    this.markerPositions$.next(points);
+    console.log("Updated points!");
+  }
+
+  getFilterNumber(category: string) {
+    if (category === "all") {
+      return this.markerPoints.length;
+    }
+
+    let cat = category as unknown as disasterCategoryFilter
+    let num = 0;
+    this.markerPoints.forEach(md => {
+      if (cat === md.category.id)
+      num++;
+    })
+    return num;
+  }
+
+  getIconImageFromCategory(category: string) {
+    return disasterCategoryToIconUrl[category];
   }
 }

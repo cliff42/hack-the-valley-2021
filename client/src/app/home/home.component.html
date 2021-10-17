@@ -1,6 +1,6 @@
 <div class="my-google-map">
     <google-map
-    height = "93vh"
+    height = "87.5vh"
     width = "100vw"
     [options]="mapOptions"
     [center]="mapCenter">
@@ -18,3 +18,12 @@
 
     </google-map>
 </div>
+
+<ul class="nav nav-fill">
+    <li class="nav-item" *ngFor="let category of disasterCategories"
+        [ngClass]="{'selected-category' : category === currentFilter.toString()}"
+        style="display: flex; align-items: center; justify-content: center; cursor: pointer;">
+      <img (click)="filterSelect(category)" [src]="getIconImageFromCategory(category)" style="height: 20px; width: 20px; padding: 0; margin: 0;"/>
+      <p class="nav-link active" (click)="filterSelect(category)"><small>({{ getFilterNumber(category)}})</small></p>
+    </li>
+</ul>

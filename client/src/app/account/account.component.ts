@@ -21,7 +21,7 @@ export class AccountComponent implements OnInit {
 
   sendPhoneInput(userId: string, phoneNum: string) {
     // Check if valid phone number
-    if (!/^[0-9\+]*\b\w{10,}\b$/gm.test(phoneNum)) {
+    if (!/^[0-9\+]*$/gm.test(phoneNum)) {
       this.statusText = 'Please enter a valid phone number.'
       return;
     }

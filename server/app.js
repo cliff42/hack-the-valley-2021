@@ -22,7 +22,7 @@ app.use(function (req, res, next) {
 // Gets a list of the current open events from NASA's EONET API
 app.get("/events", (req, res) => {
   // NASA's EONET API
-  axios.get('https://eonet.sci.gsfc.nasa.gov/api/v3/events', { params: { status: "open", limit: 50 } })
+  axios.get('https://eonet.sci.gsfc.nasa.gov/api/v3/events', { params: { status: "open", limit: 100 } })
     .then(response => {
       console.log('getting NASA EONET event data...');
       res.json({ message: response.data.events });
